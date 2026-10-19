@@ -1,0 +1,18 @@
+# Рабочий CI: .github/workflows/ci.yml
+# Шаги: checkout → configure → build → test → package
+name: ramil-ci
+on: [push, pull_request]
+jobs:
+  build-test-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_HTTP_SERVER=ON
+      - name: build
+        run: cmake --build build --parallel
+      - name: test
+        run: ctest --test-dir build --output-on-failure
+      - name: package
+        run: tar -czf taskflow-ramil.tar.gz -C build taskflow_cli taskflow_tests taskflow_server

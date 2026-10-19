@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  assignee TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'New',
+  priority INTEGER NOT NULL CHECK(priority BETWEEN 1 AND 5),
+  description TEXT NOT NULL DEFAULT '',
+  tag TEXT NOT NULL DEFAULT 'general'
+);

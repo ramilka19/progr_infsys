@@ -1,0 +1,18 @@
+@startuml TaskFlow_Ramil_Lab2
+interface ITaskRepository
+interface IPriorityStrategy
+class TaskService
+class InMemoryTaskRepository
+class SQLiteTaskRepository
+class AssigneePriorityStrategy
+class EventLog
+class make_repository <<factory>>
+TaskService --> ITaskRepository
+TaskService --> IPriorityStrategy
+TaskService ..> EventLog : Observer
+InMemoryTaskRepository ..|> ITaskRepository
+SQLiteTaskRepository ..|> ITaskRepository
+AssigneePriorityStrategy ..|> IPriorityStrategy
+make_repository ..> InMemoryTaskRepository
+make_repository ..> SQLiteTaskRepository
+@enduml
